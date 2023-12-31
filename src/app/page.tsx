@@ -23,7 +23,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
+import { toast } from "sonner";
 interface SpotifyConfig {
   Token: String;
 }
@@ -73,6 +73,7 @@ export default function Home() {
         .then((response) => {
           setToken(response.data.access_token);
           localStorage.setItem("token", response.data.access_token);
+          console.log(response.data.access_token);
         })
         .catch((error) => {
           console.log(error);
@@ -81,8 +82,11 @@ export default function Home() {
     Response();
   }, []);
 
-  async function getAlbumsArtits(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
+  async function getAlbumsArtits(
+    event?: React.MouseEvent<HTMLButtonElement>,
+    tipo?: string
+  ) {
+    event?.preventDefault();
     setLoading(true);
     await axios
       .get(`https://api.spotify.com/v1/search?q=${search}&type=artist`, {
@@ -111,30 +115,50 @@ export default function Home() {
             }
           )
           .then((response) => {
-            setAlbums(response.data.items);
-
             setLoading(false);
+            setAlbums(response.data.items);
           })
           .catch((error) => {
-            console.log(error);
             setLoading(false);
+            console.log(error);
           });
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
+        if (
+          err.response === undefined ||
+          err.response.data.error.message === "No search query" ||
+          err.response.data.error.message === "Missing parameter type"
+        ) {
+          setLoading(false);
+          toast.error(
+            "Artista não encontrado. Utilize um nome correto e evite caracteres especiais.",
+            {
+              description: `Nome pesquisado: ${search}`,
+            }
+          );
+          setAlbums([]);
+          setArtist(undefined);
+        } else {
+          setLoading(false);
+          setAlbums([]);
+          setArtist(undefined);
+          console.log(err);
+          toast.error("Tivemos algum erro em nossa API, tente mais tarde.");
+        }
       });
   }
 
   return (
     <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
       <Navbar />
-      <div className=" flex flex-col gap-5 items-center justify-center mt-32">
-        <h1 className="text-3xl font-semibold text-center">
+      <div className="flex flex-col gap-5 items-center justify-center mt-32">
+        <h1 className="w-2/3 lg:text-3xl md:text-xl text-lg font-semibold text-center">
           Qual artista você deseja ver os lançamentos?
         </h1>
-        <div>
+        <div className="w-2/3">
           <form action={""}>
-            <div className="flex w-[700px] items-center space-x-2">
+            <div className="flex items-center space-x-2">
               <Input
                 type="text"
                 className="h-10"
@@ -145,17 +169,18 @@ export default function Home() {
               <Button
                 type="submit"
                 className="h-10 hidden"
-                disabled={!search}
+                disabled={!search || search === undefined}
                 onClick={getAlbumsArtits}
               >
                 Pesquisar
               </Button>
               <Select
-                onValueChange={(value) => {
-                  setTipo(value); // Chame sua função adicional aqui
-                  setAlbums([]);
+                onValueChange={(value: string) => {
+                  setTipo(value);
+                  getAlbumsArtits(undefined, value);
                 }}
                 value={tipo}
+                disabled={!search}
               >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue defaultValue="single" placeholder="Single" />
@@ -192,11 +217,22 @@ export default function Home() {
         <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 ">
           <div className="w-2/3 flex gap-4 items-center justify-between">
             <div className="flex gap-4">
-              <Link href={`${artist?.external_urls.spotify}`} target="_blank">
+              <Link
+                href={`${
+                  artist?.external_urls.spotify === undefined
+                    ? ""
+                    : artist?.external_urls.spotify
+                }`}
+                target="_blank"
+              >
                 <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
                   <Avatar>
                     <AvatarImage
-                      src={`${artist?.images[0].url}`}
+                      src={`${
+                        artist?.images[0].url === undefined
+                          ? ""
+                          : artist?.images[0].url
+                      }`}
                       className="bg-cover rounded-full w-14 h-14"
                     />
                     <AvatarFallback>{artist?.name}</AvatarFallback>
@@ -225,7 +261,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="grid grid-cols-4 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
             {albums.map((album: Albums, index) => (
               <Card
                 key={index}
