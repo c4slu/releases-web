@@ -16,6 +16,13 @@ import { Badge } from "@/components/ui/badge";
 import { Link2, LinkIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface SpotifyConfig {
   Token: String;
@@ -27,8 +34,8 @@ interface Albums {
   release_date: string;
   total_tracks: number;
   external_urls: { spotify: string };
-
   images: { url: string }[];
+  album_type: string;
 }
 
 interface Artist {
@@ -38,6 +45,9 @@ interface Artist {
   genres: string[];
   external_urls: { spotify: string };
   images: { url: string }[];
+  followers: {
+    total: number;
+  };
 }
 export default function Home() {
   const [Token, setToken] = useState([]);
@@ -45,6 +55,7 @@ export default function Home() {
   const [artist, setArtist] = useState<Artist>();
   const [albums, setAlbums] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [tipo, setTipo] = useState("");
 
   useEffect(() => {
     async function Response() {
@@ -62,6 +73,7 @@ export default function Home() {
         .then((response) => {
           setToken(response.data.access_token);
           localStorage.setItem("token", response.data.access_token);
+          console.log(response.data.access_token);
         })
         .catch((error) => {
           console.log(error);
@@ -81,11 +93,18 @@ export default function Home() {
       })
       .then((response) => {
         setArtist(response.data.artists.items[0]);
-        console.log(artist);
 
         axios
           .get(
-            `https://api.spotify.com/v1/artists/${response.data.artists.items[0].id}/albums?album_type=album`,
+            `https://api.spotify.com/v1/artists/${
+              response.data.artists.items[0].id
+            }/albums${
+              tipo === "all"
+                ? ""
+                : tipo === "album"
+                ? "?album_type=album"
+                : "?album_type=single"
+            }`,
             {
               headers: {
                 Authorization: `Bearer ${Token}`,
@@ -94,7 +113,8 @@ export default function Home() {
           )
           .then((response) => {
             setAlbums(response.data.items);
-            console.log(albums);
+            console.log(response.data.items[1].album_type);
+
             setLoading(false);
           })
           .catch((error) => {
@@ -132,6 +152,22 @@ export default function Home() {
               >
                 Pesquisar
               </Button>
+              <Select
+                onValueChange={(value) => {
+                  setTipo(value); // Chame sua função adicional aqui
+                  setAlbums([]);
+                }}
+                value={tipo}
+              >
+                <SelectTrigger className="w-[180px]">
+                  <SelectValue defaultValue="single" placeholder="Single" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="album">Albums</SelectItem>
+                  <SelectItem value="single">Singles</SelectItem>
+                  <SelectItem value="all">Todos</SelectItem>
+                </SelectContent>
+              </Select>
             </div>
           </form>
         </div>
@@ -156,26 +192,39 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 ">
-          <div className="w-2/3 flex gap-4 items-center">
-            <Link href={`${artist?.external_urls.spotify}`} target="_blank">
-              <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
-                <Avatar>
-                  <AvatarImage
-                    src={`${artist?.images[0].url}`}
-                    className="bg-cover rounded-full w-14 h-14"
-                  />
-                  <AvatarFallback>{artist?.name}</AvatarFallback>
-                </Avatar>
-                {artist?.name}
-              </h1>
-            </Link>
-            <div className="flex gap-2 items-center ">
-              {artist?.genres.map((genre, index) => (
-                <Badge
-                  variant="secondary"
-                  key={index}
-                >{`${genre.toUpperCase()}`}</Badge>
-              ))}
+          <div className="w-2/3 flex gap-4 items-center justify-between">
+            <div className="flex gap-4">
+              <Link href={`${artist?.external_urls.spotify}`} target="_blank">
+                <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
+                  <Avatar>
+                    <AvatarImage
+                      src={`${artist?.images[0].url}`}
+                      className="bg-cover rounded-full w-14 h-14"
+                    />
+                    <AvatarFallback>{artist?.name}</AvatarFallback>
+                  </Avatar>
+                  <div className="flex flex-col">
+                    <p>{artist?.name}</p>
+                    <div className="flex gap-1">
+                      <p className="text-xs flex">
+                        {artist?.followers.total.toLocaleString("en-US", {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        })}
+                      </p>
+                      {artist && <p className="text-xs">Seguidores</p>}
+                    </div>
+                  </div>
+                </h1>
+              </Link>
+              <div className="flex gap-2 items-center ">
+                {artist?.genres.map((genre, index) => (
+                  <Badge
+                    variant="secondary"
+                    key={index}
+                  >{`${genre.toUpperCase()}`}</Badge>
+                ))}
+              </div>
             </div>
           </div>
           <div className="grid grid-cols-4 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
@@ -193,11 +242,22 @@ export default function Home() {
                       height={200}
                       className="flex w-full justify-center items-center rounded"
                     />
-
-                    <h1 className="text-sm line-clamp-1">{album.name}</h1>
-                    <h1 className="text-xs">
-                      {album.release_date} • {album.total_tracks} Musicas
-                    </h1>
+                    <div className="flex flex-col pt-4">
+                      <div className="flex justify-between">
+                        <h1 className="text-sm line-clamp-1">{album.name}</h1>
+                        <div className="flex justify-end">
+                          <Badge
+                            className="flex w-14 items-center justify-center"
+                            variant="secondary"
+                          >
+                            {album.album_type}
+                          </Badge>
+                        </div>
+                      </div>
+                      <h1 className="text-xs">
+                        {album.release_date} • {album.total_tracks} Musicas
+                      </h1>
+                    </div>
                   </CardHeader>
                 </Link>
               </Card>
@@ -205,12 +265,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      {/* <div className="w-screen flex flex-col items-center justify-center mt-32">
-        <div className="flex w-[800px] text-muted-foreground items-center gap-2">
-          <Clock />
-          <h1 className="font-semibold text-start">Pesquisas Anteriores</h1>
-        </div>
-      </div> */}
       <div className="-z-10 bg-primary/10 absolute -top-2/4 left-1/2 -translate-x-[50%] w-[1080px] h-[720px] rounded-full blur-3xl"></div>
     </main>
   );
