@@ -73,7 +73,6 @@ export default function Home() {
         .then((response) => {
           setToken(response.data.access_token);
           localStorage.setItem("token", response.data.access_token);
-          console.log(response.data.access_token);
         })
         .catch((error) => {
           console.log(error);
@@ -113,7 +112,6 @@ export default function Home() {
           )
           .then((response) => {
             setAlbums(response.data.items);
-            console.log(response.data.items[1].album_type);
 
             setLoading(false);
           })
