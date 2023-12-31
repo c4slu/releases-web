@@ -153,10 +153,10 @@ export default function Home() {
     <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
       <Navbar />
       <div className="flex flex-col gap-5 items-center justify-center mt-32">
-        <h1 className="w-2/3 lg:text-3xl md:text-xl text-lg font-semibold text-center">
+        <h1 className="w-3/4 lg:text-3xl md:text-xl text-lg font-semibold text-center">
           Qual artista você deseja ver os lançamentos?
         </h1>
-        <div className="w-2/3">
+        <div className="w-3/4">
           <form action={""}>
             <div className="flex items-center space-x-2">
               <Input
@@ -169,7 +169,7 @@ export default function Home() {
               <Button
                 type="submit"
                 className="h-10 hidden"
-                disabled={!search || search === undefined}
+                disabled={!search || search === undefined || tipo === undefined}
                 onClick={getAlbumsArtits}
               >
                 Pesquisar
@@ -183,10 +183,12 @@ export default function Home() {
                 disabled={!search}
               >
                 <SelectTrigger className="w-[180px]">
-                  <SelectValue defaultValue="single" placeholder="Single" />
+                  <SelectValue placeholder="Selecione um tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="album">Albums</SelectItem>
+                  <SelectItem value="album" defaultValue={"album"}>
+                    Albums
+                  </SelectItem>
                   <SelectItem value="single">Singles</SelectItem>
                   <SelectItem value="all">Todos</SelectItem>
                 </SelectContent>
@@ -299,7 +301,7 @@ export default function Home() {
           </div>
         </div>
       )}
-      <div className="-z-10 bg-primary/10 absolute -top-2/4 left-1/2 -translate-x-[50%] w-[1080px] h-[720px] rounded-full blur-3xl"></div>
+      <div className="-z-10 bg-primary/10 absolute -top-2/4 left-1/2 -translate-x-[50%] w-2/3 h-[720px] rounded-full blur-3xl "></div>
     </main>
   );
 }
