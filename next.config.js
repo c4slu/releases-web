@@ -9,6 +9,12 @@ module.exports = {
         port: "",
         pathname: "**",
       },
+      {
+        protocol: "http",
+        hostname: "i.scdn.co",
+        port: "",
+        pathname: "**",
+      },
     ],
   },
 };

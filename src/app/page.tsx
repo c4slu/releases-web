@@ -13,7 +13,6 @@ import {
 import { Card, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Link2, LinkIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -24,9 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-interface SpotifyConfig {
-  Token: String;
-}
+
 
 interface Albums {
   id: string;
