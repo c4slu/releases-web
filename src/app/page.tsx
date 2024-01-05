@@ -3,7 +3,6 @@ import Image from "next/image";
 import Navbar from "@/components/navbar";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -13,7 +12,6 @@ import {
 import { Card, CardHeader } from "@/components/ui/card";
 import Link from "next/link";
 import { Badge } from "@/components/ui/badge";
-import { Link2, LinkIcon } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@radix-ui/react-avatar";
 import { Skeleton } from "@/components/ui/skeleton";
 import {
@@ -24,9 +22,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
-interface SpotifyConfig {
-  Token: String;
-}
 
 interface Albums {
   id: string;
@@ -49,6 +44,7 @@ interface Artist {
     total: number;
   };
 }
+
 export default function Home() {
   const [Token, setToken] = useState([]);
   const [search, setSearch] = useState("");
@@ -86,6 +82,7 @@ export default function Home() {
     event?: React.MouseEvent<HTMLButtonElement>,
     tipo?: string
   ) {
+    console.log(tipo);
     event?.preventDefault();
     setLoading(true);
     await axios
@@ -106,7 +103,9 @@ export default function Home() {
                 ? ""
                 : tipo === "album"
                 ? "?album_type=album"
-                : "?album_type=single"
+                : tipo === "single"
+                ? "?album_type=single"
+                : ""
             }`,
             {
               headers: {
@@ -157,7 +156,7 @@ export default function Home() {
           Qual artista você deseja ver os lançamentos?
         </h1>
         <div className="w-3/4">
-          <form action={""}>
+          <form>
             <div className="flex items-center space-x-2">
               <Input
                 type="text"
@@ -169,13 +168,17 @@ export default function Home() {
               <Button
                 type="submit"
                 className="h-10 hidden"
-                disabled={!search || search === undefined || tipo === undefined}
+                disabled={
+                  !search || search === undefined || tipo === undefined
+                    ? true
+                    : false
+                }
                 onClick={getAlbumsArtits}
               >
                 Pesquisar
               </Button>
               <Select
-                onValueChange={(value: string) => {
+                onValueChange={(value) => {
                   setTipo(value);
                   getAlbumsArtits(undefined, value);
                 }}
@@ -186,9 +189,7 @@ export default function Home() {
                   <SelectValue placeholder="Selecione um tipo" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="album" defaultValue={"album"}>
-                    Albums
-                  </SelectItem>
+                  <SelectItem value="album">Albums</SelectItem>
                   <SelectItem value="single">Singles</SelectItem>
                   <SelectItem value="all">Todos</SelectItem>
                 </SelectContent>

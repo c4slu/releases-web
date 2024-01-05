@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import React from "react";
 import { cn } from "@/lib/utils";
-import { Github } from "lucide-react";
+import { Github, Disc3 } from "lucide-react";
 import Link from "next/link";
 
 export default function Navbar() {
@@ -21,7 +21,7 @@ export default function Navbar() {
         <div className="flex gap-2">
           <a href="/">
             <div className="flex gap-2 items-center bg-accent/50 px-3 py-1 rounded-xl hover:scale-105 transition-transform">
-              <Image src="/logo.png" alt="" width={32} height={32} />
+              <Disc3 />
               <h1 className="text-sm font-bold">releases-web</h1>
             </div>
           </a>
