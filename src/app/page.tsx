@@ -23,6 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "sonner";
+import { ChevronRight } from "lucide-react";
 
 
 interface Albums {
@@ -147,11 +148,15 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col overflow-hidden" >
       <Navbar />
-      <div className="flex flex-col gap-5 items-center justify-center mt-32">
-        <h1 className="w-3/4 lg:text-3xl md:text-xl text-lg font-semibold text-center">
-          Qual artista você deseja ver os lançamentos?
+      <div className="flex flex-col gap-2 items-center justify-center">
+        <Image src={'/music.svg'} alt="" width={200} height={200} className="transform animate-rotate "/>
+        <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px]">
+        <Badge variant="secondary" className="flex h-full w-full items-center py-1.5 font-normal text-[13.5px] bg-background justify-center ">Veja os ultimos lancamentos dos seus artistas preferidos <ChevronRight width={15}/></Badge>
+        </div>
+        <h1 className="w-3/4 lg:text-4xl md:text-3xl text-xl font-semibold text-center">
+          Qual artista você deseja ver os lançamentos? 
         </h1>
         <div className="w-3/4">
           <form action={""}>
@@ -298,7 +303,6 @@ export default function Home() {
           </div>
         </div>
       )}
-      <div className="-z-10 bg-primary/10 absolute -top-2/4 left-1/2 -translate-x-[50%] w-2/3 h-[720px] rounded-full blur-3xl "></div>
     </main>
   );
 }
