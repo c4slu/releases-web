@@ -116,7 +116,12 @@ const HeadphoneScene: React.FC = () => {
     };
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="flex justify-center items-center w-screen h-screen"
+    />
+  );
 };
 
 export default HeadphoneScene;

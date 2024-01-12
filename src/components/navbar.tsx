@@ -16,16 +16,16 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <main className=" p-4">
+    <main className="p-4 z-20">
       <div className="flex items-center justify-between gap-5">
         <div className="flex gap-2">
           <a href="/">
-            <div className="flex gap-2 items-center bg-accent/50 px-3 py-1 rounded-xl hover:scale-105 transition-transform">
+            <div className="flex gap-2 items-center bg-accent/50 px-3 py-2 rounded-xl hover:scale-105 transition-transform">
               <Disc3 />
               <h1 className="text-sm font-bold">releases-web</h1>
             </div>
           </a>
-          <div>
+          {/* <div>
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
@@ -43,7 +43,7 @@ export default function Navbar() {
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
-          </div>
+          </div> */}
         </div>
         <Link href="https://github.com/c4slu/releases-web" target="_blank">
           <div className="flex items-center p-2 bg-accent/50 rounded-xl hover:bg-accent transition-colors">
