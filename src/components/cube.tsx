@@ -13,16 +13,15 @@ const HeadphoneScene: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(
       4,
       window.innerWidth / window.innerHeight,
-      10,
+      1,
       100
     );
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current!,
       alpha: true,
-      antialias: true,
     });
 
-    renderer.setSize(window.innerWidth - 200, window.innerHeight - 200);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     scene.background = null;
 
     // Adiciona uma luz ambiente
@@ -52,22 +51,14 @@ const HeadphoneScene: React.FC = () => {
             const scale = 1 / maxDimension;
 
             gltf.scene.scale.set(scale, scale, scale);
-            const panAnimation = () => {
-              gsap.to(scene.rotation, {
-                duration: 8, // Duração da animação em segundos
-                y: Math.PI / 2, // Rotação completa (360 graus)
-                ease: "linear", // Tipo de easing para uma transição suave
-                repeat: -1, // Repetir uma vez (ida e volta)
-                yoyo: true, // Inclui a volta suave
-              });
-            };
-
-            // Inicia a animação de pan
-            panAnimation();
           }
         });
 
+        // Adiciona o modelo à cena
         scene.add(gltf.scene);
+
+        // Inicia a animação de pan
+        panAnimation();
       },
       undefined,
       function (error) {
@@ -81,18 +72,23 @@ const HeadphoneScene: React.FC = () => {
     camera.position.x = 8;
     camera.lookAt(0, 0, 0);
 
-    // Adiciona controles de órbita
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.5;
-    controls.screenSpacePanning = false;
-    controls.enableZoom = false;
+    // Adiciona controles de órbita apenas se não estiver em um dispositivo móvel
+    let controls: OrbitControls | null = null;
+    if (!isMobileDevice()) {
+      controls = new OrbitControls(camera, renderer.domElement);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.5;
+      controls.screenSpacePanning = false;
+      controls.enableZoom = false;
+    }
 
     const animate = () => {
       requestAnimationFrame(animate);
 
-      // Atualiza os controles de órbita
-      controls.update();
+      // Atualiza os controles de órbita apenas se não estiver em um dispositivo móvel
+      if (controls) {
+        controls.update();
+      }
 
       // Renderiza a cena
       renderer.render(scene, camera);
@@ -108,6 +104,15 @@ const HeadphoneScene: React.FC = () => {
       renderer.setSize(newWidth, newHeight);
     };
 
+    const panAnimation = () => {
+      gsap.to(scene.rotation, {
+        duration: 8,
+        y: Math.PI * 2,
+        ease: "linear",
+        repeat: -1,
+      });
+    };
+
     window.addEventListener("resize", handleResize);
 
     animate();
@@ -117,14 +122,11 @@ const HeadphoneScene: React.FC = () => {
     };
   }, []);
 
-  return (
-    <canvas
-      ref={canvasRef}
-      // width={128}
-      // height={128}
-      className="border flex justify-center items-center"
-    />
-  );
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+
+  return <canvas ref={canvasRef} />;
 };
 
 export default HeadphoneScene;
