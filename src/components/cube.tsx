@@ -21,7 +21,7 @@ const HeadphoneScene: React.FC = () => {
       alpha: true,
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth - 30, window.innerHeight);
     scene.background = null;
 
     // Adiciona uma luz ambiente

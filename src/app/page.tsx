@@ -164,7 +164,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col touch-none	">
       <Navbar />
       <div className="flex flex-col gap-2 items-center justify-center mt-32">
         <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
@@ -241,20 +241,20 @@ export default function Home() {
             <Skeleton className=" w-14 h-14 rounded-full" />
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
           </div>
-          <div className="grid grid-cols-4 w-2/3 max-w-screen gap-8 auto-rows-max">
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
-            <Skeleton className=" w-full h-[344px] rounded" />
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
+            <Skeleton className=" w-[150px] h-[150px] rounded" />
           </div>
         </div>
       ) : (
         <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10">
-          <div className="w-2/3 flex gap-4 items-center justify-between">
+          <div className="w-full flex gap-4 items-center justify-between">
             <div className="flex gap-4">
               <Link
                 href={`${
