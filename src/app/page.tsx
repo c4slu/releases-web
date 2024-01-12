@@ -26,7 +26,6 @@ import { toast } from "sonner";
 import { ChevronRight } from "lucide-react";
 import HeadphoneScene from "@/components/cube";
 
-
 interface Albums {
   id: string;
   name: string;
@@ -149,59 +148,68 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col overflow-hidden" >
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
       <Navbar />
-      <div className="flex flex-col gap-2 items-center justify-center  ">
-        <div className="relative top-14 ">
-        <div className="bg-gradient-to-r w-96 h-24 absolute -z-10 from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl backdrop-blur-3xl"></div>
-        <HeadphoneScene />
+      <div className="flex flex-col gap-2 items-center justify-center mt-32">
+        <div className="bg-gradient-to-r w-2/3 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
+        <div className="absolute w-full h-full flex justify-center items-center">
+          <HeadphoneScene />
         </div>
-        {/* <Image src={'/music.svg'} alt="" width={200} height={200} className="transform animate-rotate "/> */}
-        <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px]">
-        <Badge variant="secondary" className="flex h-full w-full items-center py-1.5 font-normal text-[13.5px] bg-background justify-center ">Veja os ultimos lancamentos dos seus artistas preferidos <ChevronRight width={15}/></Badge>
-        </div>
-        <h1 className="w-3/4 lg:text-4xl md:text-3xl text-xl font-semibold text-center">
-          Qual artista você deseja ver os lançamentos? 
-        </h1>
-        <div className="w-3/4">
-          <form action={""}>
-            <div className="flex items-center space-x-2">
-              <Input
-                type="text"
-                className="h-10"
-                placeholder="Qual o artista que você vai querer ver os lancamentos?"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-              />
-              <Button
-                type="submit"
-                className="h-10 hidden"
-                disabled={!search || search === undefined || tipo === undefined}
-                onClick={getAlbumsArtits}
-              >
-                Pesquisar
-              </Button>
-              <Select
-                onValueChange={(value: string) => {
-                  setTipo(value);
-                  getAlbumsArtits(undefined, value);
-                }}
-                value={tipo}
-                disabled={!search}
-              >
-                <SelectTrigger className="w-[180px]">
-                  <SelectValue placeholder="Selecione um tipo" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="album" defaultValue={"album"}>
-                    Albums
-                  </SelectItem>
-                  <SelectItem value="single">Singles</SelectItem>
-                  <SelectItem value="all">Todos</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </form>
+        <div className="flex flex-col gap-2 items-center justify-center z-10">
+          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] w-2/3 -z-50">
+            <Badge
+              variant="secondary"
+              className="flex h-full w-full items-center py-1.5 font-normal text-[13.5px] bg-background justify-center "
+            >
+              Veja os ultimos lancamentos dos seus artistas preferidos{" "}
+              <ChevronRight width={15} />
+            </Badge>
+          </div>
+          <h1 className="w-full lg:text-3xl md:text-2xl text-xl font-semibold text-center">
+            Qual artista você deseja ver os lançamentos?
+          </h1>
+          <div className="w-full">
+            <form action={""}>
+              <div className="flex items-center space-x-2">
+                <Input
+                  type="text"
+                  className="h-10"
+                  placeholder="Qual o artista que você vai querer ver os lancamentos?"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                />
+                <Button
+                  type="submit"
+                  className="h-10 hidden"
+                  disabled={
+                    !search || search === undefined || tipo === undefined
+                  }
+                  onClick={getAlbumsArtits}
+                >
+                  Pesquisar
+                </Button>
+                <Select
+                  onValueChange={(value: string) => {
+                    setTipo(value);
+                    getAlbumsArtits(undefined, value);
+                  }}
+                  value={tipo}
+                  disabled={!search}
+                >
+                  <SelectTrigger className="w-[180px]">
+                    <SelectValue placeholder="Selecione um tipo" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="album" defaultValue={"album"}>
+                      Albums
+                    </SelectItem>
+                    <SelectItem value="single">Singles</SelectItem>
+                    <SelectItem value="all">Todos</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
 
