@@ -152,7 +152,7 @@ export default function Home() {
       <Navbar />
       <div className="flex flex-col gap-2 items-center justify-center mt-32">
         <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
-        <div className="absolute w-full flex justify-center items-center">
+        <div className="absolute w-full flex justify-center items-center overflow-y-hidden">
           <HeadphoneScene />
         </div>
         <div className="flex flex-col gap-1 items-center justify-center z-10">
