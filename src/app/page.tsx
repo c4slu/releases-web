@@ -52,7 +52,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [artist, setArtist] = useState<Artist>();
   const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [tipo, setTipo] = useState("");
 
   useEffect(() => {
@@ -152,7 +152,7 @@ export default function Home() {
       <Navbar />
       <div className="flex flex-col gap-2 items-center justify-center mt-32">
         <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
-        <div className="absolute w-full flex justify-center items-center overflow-y-hidden">
+        <div className="absolute w-full flex justify-center items-center overflow-x-hidden">
           <HeadphoneScene />
         </div>
         <div className="flex flex-col gap-1 items-center justify-center z-10">
@@ -221,9 +221,16 @@ export default function Home() {
 
       {loading ? (
         <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10 ">
-          <div className="w-2/3 flex gap-4 items-center">
-            <Skeleton className=" w-14 h-14 rounded-full" />
-            <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+          <div className="w-2/3 flex flex-col xl:flex-row md:flex-row gap-4 items-center">
+            <div className="flex items-center gap-2">
+              <Skeleton className=" w-14 h-14 rounded-full" />
+              <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+            </div>
+            <div>
+              <Badge variant="secondary" />
+              <Badge variant="secondary" />
+              <Badge variant="secondary" />
+            </div>
           </div>
           <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
             <Skeleton className=" w-[150px] h-[150px] rounded" />
@@ -239,7 +246,7 @@ export default function Home() {
       ) : (
         <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10">
           <div className="w-full flex gap-4 items-center justify-between">
-            <div className="flex gap-4">
+            <div className="flex flex-col md:flex-row lg:flex-row gap-4">
               <Link
                 href={`${
                   artist?.external_urls.spotify === undefined
@@ -276,10 +283,9 @@ export default function Home() {
               </Link>
               <div className="flex gap-2 items-center ">
                 {artist?.genres.map((genre, index) => (
-                  <Badge
-                    variant="secondary"
-                    key={index}
-                  >{`${genre.toUpperCase()}`}</Badge>
+                  <Badge variant="secondary" key={index}>{`${
+                    genre.toUpperCase().split(" ")[0]
+                  }`}</Badge>
                 ))}
               </div>
             </div>
@@ -297,7 +303,7 @@ export default function Home() {
                       alt=""
                       width={200}
                       height={200}
-                      className="flex w-full justify-center items-center rounded"
+                      className="flex w-full justify-center items-center rounded "
                     />
                     <div className="flex flex-col pt-4">
                       <div className="flex justify-between">
