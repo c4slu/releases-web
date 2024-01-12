@@ -78,22 +78,6 @@ export default function Home() {
         });
     }
     Response();
-
-    const handleInputFocus = () => {
-      document.body.style.touchAction = "none";
-    };
-
-    const handleInputBlur = () => {
-      document.body.style.touchAction = "auto";
-    };
-
-    window.addEventListener("touchstart", handleInputFocus);
-    window.addEventListener("touchend", handleInputBlur);
-
-    return () => {
-      window.removeEventListener("touchstart", handleInputFocus);
-      window.removeEventListener("touchend", handleInputBlur);
-    };
   }, []);
 
   async function getAlbumsArtits(
@@ -164,7 +148,7 @@ export default function Home() {
   }
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col touch-none	">
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
       <Navbar />
       <div className="flex flex-col gap-2 items-center justify-center mt-32">
         <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
@@ -195,7 +179,7 @@ export default function Home() {
               <div className="flex flex-col xl:flex-row md:flex-row items-center justify-center md:space-x-2 lg:space-x-2 gap-2">
                 <Input
                   type="text"
-                  className="h-full md:h-10 lg:h-10"
+                  className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom"
                   placeholder="Qual o artista que você vai querer ver os lancamentos?"
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
