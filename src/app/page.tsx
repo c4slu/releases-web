@@ -152,23 +152,25 @@ export default function Home() {
       <Navbar />
       <div className="flex flex-col gap-2 items-center justify-center mt-32">
         <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
-        <div className="absolute w-full flex justify-center items-center overflow-y-hidden">
+        <div className="absolute w-full flex justify-center items-center overflow-x-hidden">
           <HeadphoneScene />
         </div>
         <div className="flex flex-col gap-1 items-center justify-center z-10">
-          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] w-[13rem] -z-50">
+          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[.9px] w-[13rem] -z-50">
             <Link
               href={"https://developer.spotify.com/documentation/web-api"}
               target="_blank"
             >
-              <Badge
-                variant="secondary"
-                className="flex h-full w-full items-center py-1.5 gap-2 font-normal text-[13.5px] bg-background justify-center "
-              >
-                <Image src={"/spotify.webp"} alt="" width={15} height={15} />
-                Spotify API
-                <ChevronRight width={15} />
-              </Badge>
+              <div className="">
+                <Badge
+                  variant="secondary"
+                  className="flex h-full w-full items-center py-1.5  gap-2 font-normal text-[13.5px] bg-background justify-center"
+                >
+                  <Image src={"/spotify.webp"} alt="" width={15} height={15} />
+                  Spotify API
+                  <ChevronRight width={15} />
+                </Badge>
+              </div>
             </Link>
           </div>
           <h1 className="w-full lg:text-3xl md:text-2xl text-base font-semibold text-center">
@@ -179,7 +181,7 @@ export default function Home() {
               <div className="flex flex-col xl:flex-row md:flex-row items-center justify-center md:space-x-2 lg:space-x-2 gap-2">
                 <Input
                   type="text"
-                  className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom"
+                  className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom "
                   placeholder="Qual o artista que você vai querer ver os lancamentos?"
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
@@ -220,66 +222,74 @@ export default function Home() {
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10 ">
-          <div className="w-2/3 flex gap-4 items-center">
-            <Skeleton className=" w-14 h-14 rounded-full" />
-            <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+        <div className="flex flex-col w-full items-center justify-center mt-52 gap-6 z-10">
+          <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
+            <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
+              <div className="flex items-center gap-2">
+                <Skeleton className=" w-10 h-10 rounded-full" />
+                <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+              </div>
+              <div className="flex gap-2 items-center justify-center">
+                <Badge variant="secondary" />
+                <Badge variant="secondary" />
+                <Badge variant="secondary" />
+              </div>
+            </div>
           </div>
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
+          <div className="w-full flex items-center justify-center">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20 md:justify-start lg:justify-start justify-center">
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+            </div>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10">
-          <div className="w-full flex gap-4 items-center justify-between">
-            <div className="flex gap-4">
-              <Link
-                href={`${
-                  artist?.external_urls.spotify === undefined
-                    ? ""
-                    : artist?.external_urls.spotify
-                }`}
-                target="_blank"
-              >
-                <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
-                  <Avatar>
-                    <AvatarImage
-                      src={`${
-                        artist?.images[0].url === undefined
-                          ? ""
-                          : artist?.images[0].url
-                      }`}
-                      className="bg-cover rounded-full w-14 h-14"
-                    />
-                    <AvatarFallback>{artist?.name}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <p>{artist?.name}</p>
-                    <div className="flex gap-1">
-                      <p className="text-xs flex">
-                        {artist?.followers.total.toLocaleString("en-US", {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        })}
-                      </p>
-                      {artist && <p className="text-xs">Seguidores</p>}
+        <div className="flex flex-col w-full items-center justify-center mt-52 gap-6 z-10">
+          <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
+            <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`${
+                    artist?.external_urls.spotify === undefined
+                      ? ""
+                      : artist?.external_urls.spotify
+                  }`}
+                  target="_blank"
+                >
+                  <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
+                    <Avatar>
+                      <AvatarImage
+                        src={`${
+                          artist?.images[0].url === undefined
+                            ? ""
+                            : artist?.images[0].url
+                        }`}
+                        className="bg-cover rounded-full w-14 h-14"
+                      />
+                      <AvatarFallback>{artist?.name}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col">
+                      <p>{artist?.name}</p>
+                      <div className="flex gap-1">
+                        <p className="text-xs flex">
+                          {artist?.followers.total.toLocaleString("en-US", {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          })}
+                        </p>
+                        {artist && <p className="text-xs">Seguidores</p>}
+                      </div>
                     </div>
-                  </div>
-                </h1>
-              </Link>
-              <div className="flex gap-2 items-center ">
+                  </h1>
+                </Link>
+              </div>
+              <div className="flex gap-2 items-center justify-center">
                 {artist?.genres.map((genre, index) => (
-                  <Badge
-                    variant="secondary"
-                    key={index}
-                  >{`${genre.toUpperCase()}`}</Badge>
+                  <Badge variant="secondary" key={index}>{`${
+                    genre.toUpperCase().split(" ")[0]
+                  }`}</Badge>
                 ))}
               </div>
             </div>
@@ -297,7 +307,7 @@ export default function Home() {
                       alt=""
                       width={200}
                       height={200}
-                      className="flex w-full justify-center items-center rounded"
+                      className="flex w-full justify-center items-center rounded "
                     />
                     <div className="flex flex-col pt-4">
                       <div className="flex justify-between">
