@@ -52,7 +52,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [artist, setArtist] = useState<Artist>();
   const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [tipo, setTipo] = useState("");
 
   useEffect(() => {
@@ -220,24 +220,24 @@ export default function Home() {
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 z-10">
+        <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10 ">
           <div className="w-2/3 flex gap-4 items-center">
             <Skeleton className=" w-14 h-14 rounded-full" />
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
           </div>
           <div className="grid grid-cols-4 w-2/3 max-w-screen gap-8 auto-rows-max">
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
-            <Skeleton className=" w-[295px] h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
+            <Skeleton className=" w-full h-[344px] rounded" />
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 z-10">
+        <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10 border">
           <div className="w-2/3 flex gap-4 items-center justify-between">
             <div className="flex gap-4">
               <Link

@@ -13,15 +13,16 @@ const HeadphoneScene: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(
       4,
       window.innerWidth / window.innerHeight,
-      1,
+      10,
       100
     );
     const renderer = new THREE.WebGLRenderer({
       canvas: canvasRef.current!,
       alpha: true,
+      antialias: true,
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth - 200, window.innerHeight - 200);
     scene.background = null;
 
     // Adiciona uma luz ambiente
@@ -119,7 +120,9 @@ const HeadphoneScene: React.FC = () => {
   return (
     <canvas
       ref={canvasRef}
-      className="flex justify-center items-center w-screen h-screen"
+      // width={128}
+      // height={128}
+      className="border flex justify-center items-center"
     />
   );
 };
