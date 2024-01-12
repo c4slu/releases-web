@@ -151,7 +151,7 @@ export default function Home() {
     <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
       <Navbar />
       <div className="flex flex-col gap-2 items-center justify-center mt-32">
-        <div className="bg-gradient-to-r w-2/3 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
+        <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
         <div className="absolute w-full flex justify-center items-center">
           <HeadphoneScene />
         </div>
@@ -220,7 +220,7 @@ export default function Home() {
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 ">
+        <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 z-10">
           <div className="w-2/3 flex gap-4 items-center">
             <Skeleton className=" w-14 h-14 rounded-full" />
             <Skeleton className=" w-[100px] h-[20px] rounded-full" />
@@ -237,7 +237,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 ">
+        <div className="flex flex-col w-full justify-center items-center mt-20 gap-6 z-10">
           <div className="w-2/3 flex gap-4 items-center justify-between">
             <div className="flex gap-4">
               <Link
