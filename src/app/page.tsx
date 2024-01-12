@@ -255,7 +255,6 @@ export default function Home() {
                       : artist?.external_urls.spotify
                   }`}
                   target="_blank"
-                  className="w-2/3 flex items-center justify-start"
                 >
                   <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
                     <Avatar>
