@@ -107,9 +107,12 @@ const HeadphoneScene: React.FC = () => {
     const panAnimation = () => {
       gsap.to(scene.rotation, {
         duration: 8,
-        y: Math.PI * 2,
-        ease: "linear",
+        y: Math.PI / 2,
+        x: 0.03,
+        ease: "in",
         repeat: -1,
+        yoyo: true,
+        yoyoEase: true,
       });
     };
 

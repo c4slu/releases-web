@@ -156,19 +156,21 @@ export default function Home() {
           <HeadphoneScene />
         </div>
         <div className="flex flex-col gap-1 items-center justify-center z-10">
-          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] w-[13rem] -z-50">
+          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[.9px] w-[13rem] -z-50">
             <Link
               href={"https://developer.spotify.com/documentation/web-api"}
               target="_blank"
             >
-              <Badge
-                variant="secondary"
-                className="flex h-full w-full items-center py-1.5 gap-2 font-normal text-[13.5px] bg-background justify-center "
-              >
-                <Image src={"/spotify.webp"} alt="" width={15} height={15} />
-                Spotify API
-                <ChevronRight width={15} />
-              </Badge>
+              <div className="">
+                <Badge
+                  variant="secondary"
+                  className="flex h-full w-full items-center py-1.5  gap-2 font-normal text-[13.5px] bg-background justify-center"
+                >
+                  <Image src={"/spotify.webp"} alt="" width={15} height={15} />
+                  Spotify API
+                  <ChevronRight width={15} />
+                </Badge>
+              </div>
             </Link>
           </div>
           <h1 className="w-full lg:text-3xl md:text-2xl text-base font-semibold text-center">
@@ -179,7 +181,7 @@ export default function Home() {
               <div className="flex flex-col xl:flex-row md:flex-row items-center justify-center md:space-x-2 lg:space-x-2 gap-2">
                 <Input
                   type="text"
-                  className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom"
+                  className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom "
                   placeholder="Qual o artista que você vai querer ver os lancamentos?"
                   value={search}
                   onChange={(event) => setSearch(event.target.value)}
