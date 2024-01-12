@@ -220,68 +220,71 @@ export default function Home() {
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10 ">
-          <div className="w-2/3 flex flex-col xl:flex-row md:flex-row gap-4 items-center">
-            <div className="flex items-center gap-2">
-              <Skeleton className=" w-14 h-14 rounded-full" />
-              <Skeleton className=" w-[100px] h-[20px] rounded-full" />
-            </div>
-            <div>
-              <Badge variant="secondary" />
-              <Badge variant="secondary" />
-              <Badge variant="secondary" />
+        <div className="flex flex-col w-full items-center justify-center mt-52 gap-6 z-10">
+          <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
+            <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
+              <div className="flex items-center gap-2">
+                <Skeleton className=" w-10 h-10 rounded-full" />
+                <Skeleton className=" w-[100px] h-[20px] rounded-full" />
+              </div>
+              <div className="flex gap-2 items-center justify-center">
+                <Badge variant="secondary" />
+                <Badge variant="secondary" />
+                <Badge variant="secondary" />
+              </div>
             </div>
           </div>
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
-            <Skeleton className=" w-[150px] h-[150px] rounded" />
+          <div className="w-full flex items-center justify-center">
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20 md:justify-start lg:justify-start justify-center">
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+              <Skeleton className=" w-[150px] h-[150px] rounded" />
+            </div>
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10">
-          <div className="w-full flex gap-4 items-center justify-between">
-            <div className="flex flex-col md:flex-row lg:flex-row gap-4 w-full justify-center items-center">
-              <Link
-                href={`${
-                  artist?.external_urls.spotify === undefined
-                    ? ""
-                    : artist?.external_urls.spotify
-                }`}
-                target="_blank"
-              >
-                <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
-                  <Avatar>
-                    <AvatarImage
-                      src={`${
-                        artist?.images[0].url === undefined
-                          ? ""
-                          : artist?.images[0].url
-                      }`}
-                      className="bg-cover rounded-full w-14 h-14"
-                    />
-                    <AvatarFallback>{artist?.name}</AvatarFallback>
-                  </Avatar>
-                  <div className="flex flex-col">
-                    <p>{artist?.name}</p>
-                    <div className="flex gap-1">
-                      <p className="text-xs flex">
-                        {artist?.followers.total.toLocaleString("en-US", {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        })}
-                      </p>
-                      {artist && <p className="text-xs">Seguidores</p>}
+        <div className="flex flex-col w-full items-center justify-center mt-52 gap-6 z-10">
+          <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
+            <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
+              <div className="flex items-center gap-2">
+                <Link
+                  href={`${
+                    artist?.external_urls.spotify === undefined
+                      ? ""
+                      : artist?.external_urls.spotify
+                  }`}
+                  target="_blank"
+                  className="w-2/3 flex items-center justify-start"
+                >
+                  <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
+                    <Avatar>
+                      <AvatarImage
+                        src={`${
+                          artist?.images[0].url === undefined
+                            ? ""
+                            : artist?.images[0].url
+                        }`}
+                        className="bg-cover rounded-full w-14 h-14"
+                      />
+                      <AvatarFallback>{artist?.name}</AvatarFallback>
+                    </Avatar>
+                    <div className="flex flex-col">
+                      <p>{artist?.name}</p>
+                      <div className="flex gap-1">
+                        <p className="text-xs flex">
+                          {artist?.followers.total.toLocaleString("en-US", {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 0,
+                          })}
+                        </p>
+                        {artist && <p className="text-xs">Seguidores</p>}
+                      </div>
                     </div>
-                  </div>
-                </h1>
-              </Link>
-              <div className="flex gap-2 items-center ">
+                  </h1>
+                </Link>
+              </div>
+              <div className="flex gap-2 items-center justify-center">
                 {artist?.genres.map((genre, index) => (
                   <Badge variant="secondary" key={index}>{`${
                     genre.toUpperCase().split(" ")[0]
