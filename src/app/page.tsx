@@ -52,7 +52,7 @@ export default function Home() {
   const [search, setSearch] = useState("");
   const [artist, setArtist] = useState<Artist>();
   const [albums, setAlbums] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [tipo, setTipo] = useState("");
 
   useEffect(() => {
