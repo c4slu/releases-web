@@ -246,7 +246,7 @@ export default function Home() {
       ) : (
         <div className="flex flex-col w-full justify-center items-center mt-52 gap-6 z-10">
           <div className="w-full flex gap-4 items-center justify-between">
-            <div className="flex flex-col md:flex-row lg:flex-row gap-4 w-full">
+            <div className="flex flex-col md:flex-row lg:flex-row gap-4 w-full justify-center items-center">
               <Link
                 href={`${
                   artist?.external_urls.spotify === undefined
