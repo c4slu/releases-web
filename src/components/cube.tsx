@@ -5,7 +5,12 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import gsap from "gsap";
 
-const HeadphoneScene: React.FC = () => {
+interface Props {
+  divWidth: number;
+  divHeight: number;
+}
+
+export default function HeadphoneScene({ divWidth, divHeight }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -21,7 +26,10 @@ const HeadphoneScene: React.FC = () => {
       alpha: true,
     });
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(
+      window.innerWidth / divWidth,
+      window.innerHeight / divHeight
+    );
     scene.background = null;
 
     // Adiciona uma luz ambiente
@@ -67,7 +75,7 @@ const HeadphoneScene: React.FC = () => {
     );
 
     // Posicionamento e orientação inicial da câmera
-    camera.position.z = 12;
+    camera.position.z = 15;
     camera.position.y = 6;
     camera.position.x = 8;
     camera.lookAt(0, 0, 0);
@@ -130,6 +138,4 @@ const HeadphoneScene: React.FC = () => {
   };
 
   return <canvas ref={canvasRef} />;
-};
-
-export default HeadphoneScene;
+}

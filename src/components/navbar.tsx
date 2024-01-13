@@ -16,7 +16,7 @@ import Link from "next/link";
 
 export default function Navbar() {
   return (
-    <main className="p-4 z-20">
+    <main className="p-4 z-20 xl:px-20 md:px-20 px-10">
       <div className="flex items-center justify-between gap-5">
         <div className="flex gap-2">
           <a href="/">
@@ -54,29 +54,3 @@ export default function Navbar() {
     </main>
   );
 }
-
-const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
->(({ className, title, children, ...props }, ref) => {
-  return (
-    <li>
-      <NavigationMenuLink asChild>
-        <a
-          ref={ref}
-          className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
-          )}
-          {...props}
-        >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-            {children}
-          </p>
-        </a>
-      </NavigationMenuLink>
-    </li>
-  );
-});
-ListItem.displayName = "ListItem";
