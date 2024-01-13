@@ -227,7 +227,7 @@ export default function Home() {
             </div>
           </div>
           <div
-            className={`flex w-2/3 h-  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
+            className={`flex w-2/3 h-[530px] overflow-hidden  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
           >
             <HeadphoneScene divHeight={1} divWidth={1} />
           </div>
@@ -238,12 +238,12 @@ export default function Home() {
           <Image src={"/spotify.webp"} alt="" width={32} height={32} />
         </div>
         <div className="w-2/3 border-t border-collapse h-44 rounded-2xl flex justify-center overflow-hidden">
-          <span className="w-20 h-20 rounded-full bg-white blur-3xl relative -top-1/2"></span>
+          <span className="w-20 h-14 rounded-full bg-white blur-3xl relative -top-1/2"></span>
         </div>
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full items-center justify-center gap-6 z-10 mt-10">
+        <div className="flex flex-col w-full items-center justify-center gap-6 z-10">
           <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
             <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
               <div className="flex items-center gap-2">
@@ -267,7 +267,7 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full items-center justify-center gap-6 z-10 mt-10">
+        <div className="flex flex-col w-full items-center justify-center gap-6 z-10">
           <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
             <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
               <div className="flex  items-center gap-2 ">
