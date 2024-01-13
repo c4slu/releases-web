@@ -153,77 +153,92 @@ export default function Home() {
   console.log(isMobileDevice);
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col xl:bg-grid md:bg-grid  xl:bg-cover md:bg-cover overflow-x-hidden">
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col xl:bg-grid md:bg-grid  md:bg-cover bg-center overflow-x-hidden">
       <Navbar />
-      <div className="flex xl:flex-row md:flex-row flex-col h-1/2  gap-2 items-center justify-between xl:px-44 md:px-44 mt-6">
-        <div className="flex w-4/5 flex-col gap-4 xl:items-start md:items-center xl:text-start md:text-start text-center items-center z-10">
-          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[1px] w-[12rem] -z-50">
-            <Link
-              href={"https://developer.spotify.com/documentation/web-api"}
-              target="_blank"
-            >
-              <div className="">
-                <Badge
-                  variant="secondary"
-                  className="flex h-full w-full items-center py-0.5 gap-2 font-normal text-[13.5px] bg-background justify-center"
-                >
-                  <Image src={"/spotify.webp"} alt="" width={15} height={15} />
-                  Spotify API
-                  <ChevronRight width={15} />
-                </Badge>
-              </div>
-            </Link>
+      <div className="flex justify-center h-2/4 mt-20">
+        <div className="flex w-2/3 xl:flex-row md:flex-row flex-col h-1/2  gap-20 items-center mt-6">
+          <div className="flex w-2/3 flex-col gap-2 xl:items-start md:items-center xl:text-start md:text-start text-center items-center justify-center z-10">
+            <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[1px] w-[12rem] -z-50">
+              <Link
+                href={"https://developer.spotify.com/documentation/web-api"}
+                target="_blank"
+              >
+                <div className="">
+                  <Badge
+                    variant="secondary"
+                    className="flex h-full w-full items-center py-0.5 gap-2 font-normal text-[13.5px] bg-background justify-center"
+                  >
+                    <Image
+                      src={"/spotify.webp"}
+                      alt=""
+                      width={15}
+                      height={15}
+                    />
+                    Spotify API
+                    <ChevronRight width={15} />
+                  </Badge>
+                </div>
+              </Link>
+            </div>
+            <h1 className="w-2/3 lg:text-3xl md:text-2xl text-base font-semibold ">
+              Qual artista você deseja ver os lançamentos?
+            </h1>
+            <div className="w-3/4">
+              <form action={""}>
+                <div className="flex flex-col xl:flex-col md:flex-row justify-center gap-2">
+                  <Input
+                    type="text"
+                    className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom "
+                    placeholder="Qual o artista que você vai querer ver os lancamentos?"
+                    value={search}
+                    onChange={(event) => setSearch(event.target.value)}
+                  />
+                  <Button
+                    type="submit"
+                    className="h-10 hidden"
+                    disabled={
+                      !search || search === undefined || tipo === undefined
+                    }
+                    onClick={getAlbumsArtits}
+                  >
+                    Pesquisar
+                  </Button>
+                  <Select
+                    onValueChange={(value: string) => {
+                      setTipo(value);
+                      getAlbumsArtits(undefined, value);
+                    }}
+                    value={tipo}
+                    disabled={!search}
+                  >
+                    <SelectTrigger className="w-full">
+                      <SelectValue placeholder="Selecione um tipo" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="album" defaultValue={"album"}>
+                        Albums
+                      </SelectItem>
+                      <SelectItem value="single">Singles</SelectItem>
+                      <SelectItem value="all">Todos</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </form>
+            </div>
           </div>
-          <h1 className="w-2/3 lg:text-3xl md:text-2xl text-base font-semibold ">
-            Qual artista você deseja ver os lançamentos?
-          </h1>
-          <div className="w-11/12">
-            <form action={""}>
-              <div className="flex flex-col xl:flex-col md:flex-row justify-center gap-2">
-                <Input
-                  type="text"
-                  className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom "
-                  placeholder="Qual o artista que você vai querer ver os lancamentos?"
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                />
-                <Button
-                  type="submit"
-                  className="h-10 hidden"
-                  disabled={
-                    !search || search === undefined || tipo === undefined
-                  }
-                  onClick={getAlbumsArtits}
-                >
-                  Pesquisar
-                </Button>
-                <Select
-                  onValueChange={(value: string) => {
-                    setTipo(value);
-                    getAlbumsArtits(undefined, value);
-                  }}
-                  value={tipo}
-                  disabled={!search}
-                >
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Selecione um tipo" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="album" defaultValue={"album"}>
-                      Albums
-                    </SelectItem>
-                    <SelectItem value="single">Singles</SelectItem>
-                    <SelectItem value="all">Todos</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </form>
+          <div
+            className={`flex w-2/3 h-  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
+          >
+            <HeadphoneScene divHeight={1} divWidth={1} />
           </div>
         </div>
-        <div
-          className={`flex  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
-        >
-          <HeadphoneScene divHeight={1} divWidth={1} />
+      </div>
+      <div className="w-full flex items-center justify-center">
+        <div className="relative -top-1/2 left-[35%] bg-background rounded-xl border border-b-[#1FC758]/90 border-t-white/40 z-10 p-3 shadow-xl shadow-black/50 drop-shadow-xl">
+          <Image src={"/spotify.webp"} alt="" width={32} height={32} />
+        </div>
+        <div className="w-2/3 border-t border-collapse h-44 rounded-2xl flex justify-center overflow-hidden">
+          <span className="w-20 h-20 rounded-full bg-white blur-3xl relative -top-1/2"></span>
         </div>
       </div>
 
