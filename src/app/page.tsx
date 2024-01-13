@@ -153,7 +153,7 @@ export default function Home() {
   console.log(isMobileDevice);
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col xl:bg-grid md:bg-grid  md:bg-cover bg-center overflow-x-hidden">
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col bg-grid bg-cover bg-no-repeat">
       <Navbar />
       <div className="flex justify-center h-2/4 mt-20">
         <div className="flex w-2/3 xl:flex-row md:flex-row flex-col h-1/2  gap-20 items-center mt-6">
