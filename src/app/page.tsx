@@ -147,16 +147,17 @@ export default function Home() {
       });
   }
 
+  const isMobileDevice = () => {
+    return /Mobi|Android/i.test(navigator.userAgent);
+  };
+  console.log(isMobileDevice);
+
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col">
+    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col xl:bg-grid md:bg-grid  xl:bg-cover md:bg-cover overflow-x-hidden">
       <Navbar />
-      <div className="flex flex-col gap-2 items-center justify-center mt-32">
-        <div className="bg-gradient-to-r w-2/3 -z-50 flex h-[20rem] absolute from-green-800 via-yellow-700 to-violet-700 rounded-full p-[.9px] blur-3xl opacity-40"></div>
-        <div className="absolute w-full flex justify-center items-center overflow-x-hidden">
-          <HeadphoneScene />
-        </div>
-        <div className="flex flex-col gap-1 items-center justify-center z-10">
-          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[.9px] w-[13rem] -z-50">
+      <div className="flex xl:flex-row md:flex-row flex-col h-1/2  gap-2 items-center justify-between xl:px-44 md:px-44 mt-6">
+        <div className="flex w-4/5 flex-col gap-4 xl:items-start md:items-center xl:text-start md:text-start text-center items-center z-10">
+          <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[1px] w-[12rem] -z-50">
             <Link
               href={"https://developer.spotify.com/documentation/web-api"}
               target="_blank"
@@ -164,7 +165,7 @@ export default function Home() {
               <div className="">
                 <Badge
                   variant="secondary"
-                  className="flex h-full w-full items-center py-1.5  gap-2 font-normal text-[13.5px] bg-background justify-center"
+                  className="flex h-full w-full items-center py-0.5 gap-2 font-normal text-[13.5px] bg-background justify-center"
                 >
                   <Image src={"/spotify.webp"} alt="" width={15} height={15} />
                   Spotify API
@@ -173,12 +174,12 @@ export default function Home() {
               </div>
             </Link>
           </div>
-          <h1 className="w-full lg:text-3xl md:text-2xl text-base font-semibold text-center">
+          <h1 className="w-2/3 lg:text-3xl md:text-2xl text-base font-semibold ">
             Qual artista você deseja ver os lançamentos?
           </h1>
           <div className="w-11/12">
             <form action={""}>
-              <div className="flex flex-col xl:flex-row md:flex-row items-center justify-center md:space-x-2 lg:space-x-2 gap-2">
+              <div className="flex flex-col xl:flex-col md:flex-row justify-center gap-2">
                 <Input
                   type="text"
                   className="h-full md:h-10 lg:h-10 focus:touch-pinch-zoom "
@@ -204,7 +205,7 @@ export default function Home() {
                   value={tipo}
                   disabled={!search}
                 >
-                  <SelectTrigger className="w-full md:w-[148px] lg:w-[148px]">
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Selecione um tipo" />
                   </SelectTrigger>
                   <SelectContent>
@@ -219,10 +220,15 @@ export default function Home() {
             </form>
           </div>
         </div>
+        <div
+          className={`flex  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
+        >
+          <HeadphoneScene divHeight={1} divWidth={1} />
+        </div>
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full items-center justify-center mt-52 gap-6 z-10">
+        <div className="flex flex-col w-full items-center justify-center gap-6 z-10 mt-10">
           <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
             <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
               <div className="flex items-center gap-2">
@@ -246,30 +252,33 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="flex flex-col w-full items-center justify-center mt-52 gap-6 z-10">
+        <div className="flex flex-col w-full items-center justify-center gap-6 z-10 mt-10">
           <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
             <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
-              <div className="flex items-center gap-2">
-                <Link
+              <div className="flex  items-center gap-2 ">
+                <a
                   href={`${
                     artist?.external_urls.spotify === undefined
                       ? ""
                       : artist?.external_urls.spotify
                   }`}
                   target="_blank"
+                  className="flex gap-2 w-full flex-col xl:flex-row md:flex-row justify-center items-center"
                 >
+                  <Avatar>
+                    <AvatarImage
+                      src={`${
+                        artist?.images[0].url === undefined
+                          ? ``
+                          : artist?.images[0].url
+                      }`}
+                      alt="caslu"
+                      width={100}
+                      height={100}
+                      className="bg-cover rounded-full w-12 h-12"
+                    />
+                  </Avatar>
                   <h1 className="text-2xl flex gap-2 font-semibold items-center hover:underline transition-all">
-                    <Avatar>
-                      <AvatarImage
-                        src={`${
-                          artist?.images[0].url === undefined
-                            ? ""
-                            : artist?.images[0].url
-                        }`}
-                        className="bg-cover rounded-full w-14 h-14"
-                      />
-                      <AvatarFallback>{artist?.name}</AvatarFallback>
-                    </Avatar>
                     <div className="flex flex-col">
                       <p>{artist?.name}</p>
                       <div className="flex gap-1">
@@ -283,7 +292,7 @@ export default function Home() {
                       </div>
                     </div>
                   </h1>
-                </Link>
+                </a>
               </div>
               <div className="flex gap-2 items-center justify-center">
                 {artist?.genres.map((genre, index) => (

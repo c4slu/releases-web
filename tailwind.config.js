@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  corePlugins: {
+    backgroundOpacity: true,
+  },
   darkMode: ["class"],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -71,6 +74,10 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      backgroundImage: {
+        'grid':
+          "url('/bghero.png')",
+      }
     },
   },
   plugins: [require("tailwindcss-animate")],
