@@ -26,10 +26,7 @@ export default function HeadphoneScene({ divWidth, divHeight }: Props) {
       alpha: true,
     });
 
-    renderer.setSize(
-      window.innerWidth / divWidth,
-      window.innerHeight / divHeight
-    );
+    renderer.setSize(window.innerWidth, window.innerHeight);
     scene.background = null;
 
     // Adiciona uma luz ambiente
@@ -56,7 +53,7 @@ export default function HeadphoneScene({ divWidth, divHeight }: Props) {
 
             // Calcula a escala para manter a proporção
             const maxDimension = Math.max(size.x, size.y, size.z);
-            const scale = 1 / maxDimension;
+            const scale = 0.7 / maxDimension;
 
             gltf.scene.scale.set(scale, scale, scale);
           }
