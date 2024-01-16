@@ -153,9 +153,9 @@ export default function Home() {
   console.log(isMobileDevice);
 
   return (
-    <main className="flex h-screen max-w-screen min-h-screen min-w-screen flex-col bg-grid bg-cover bg-no-repeat">
+    <main className="flex  h-screen max-w-screen min-h-screen min-w-screen flex-col bg-grid bg-cover bg-no-repeat">
       <Navbar />
-      <div className="flex justify-center h-2/4 mt-20">
+      <div className="flex justify-center h-2/4 mt-5">
         <div className="flex w-2/3 xl:flex-row md:flex-row flex-col h-1/2  gap-20 items-center mt-6">
           <div className="flex w-2/3 flex-col gap-2 xl:items-start md:items-center xl:text-start md:text-start text-center items-center justify-center z-10">
             <div className="bg-gradient-to-r from-green-800 via-yellow-700 to-violet-700  rounded-full p-[1px] w-[12rem] -z-50">
@@ -227,13 +227,13 @@ export default function Home() {
             </div>
           </div>
           <div
-            className={`flex w-2/3 h-[530px] overflow-hidden  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
+            className={`flex w-2/3 xl:h-[530px] md:h-[530px] h-1/4 overflow-hidden  xl:relative md:relative absolute justify-center xl:items-center md:items-center items-start overflow-x-hidden `}
           >
             <HeadphoneScene divHeight={1} divWidth={1} />
           </div>
         </div>
       </div>
-      <div className="w-full flex items-center justify-center">
+      <div className="w-full flex items-center justify-center mt-10">
         <div className="relative -top-1/2 left-[35%] bg-background rounded-xl border border-b-[#1FC758]/90 border-t-white/40 z-10 p-3 shadow-xl shadow-black/50 drop-shadow-xl">
           <Image src={"/spotify.webp"} alt="" width={32} height={32} />
         </div>
@@ -243,7 +243,7 @@ export default function Home() {
       </div>
 
       {loading ? (
-        <div className="flex flex-col w-full items-center justify-center gap-6 z-10">
+        <div className="flex flex-col w-full items-center justify-center gap-6 z-10 ">
           <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
             <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
               <div className="flex items-center gap-2">
@@ -268,7 +268,7 @@ export default function Home() {
         </div>
       ) : (
         <div className="flex flex-col w-full items-center justify-center gap-6 z-10">
-          <div className="w-2/3 flex items-center md:justify-start lg:justify-start justify-center">
+          <div className="w-4/6 flex items-center md:justify-start lg:justify-start justify-center">
             <div className="flex flex-col xl:flex-row md:flex-row gap-4 w-1/2 ">
               <div className="flex  items-center gap-2 ">
                 <a
@@ -318,7 +318,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 w-2/3 max-w-screen gap-8 auto-rows-max mb-20">
+          <div className="w-4/6 grid lg:grid-cols-4 md:grid-cols-2 grid-col-1 max-w-screen gap-8 auto-rows-max mb-20">
             {albums.map((album: Albums, index) => (
               <Card
                 key={index}
