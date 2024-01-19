@@ -1,18 +1,11 @@
 "use client";
-import Image from "next/image";
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuIndicator,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { Disc3, Github } from "lucide-react";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { LogOut } from "lucide-react";
 
 export default function Navbar() {
   return (
@@ -46,11 +39,16 @@ export default function Navbar() {
             </NavigationMenu>
           </div> */}
           </div>
-          <Link href="https://github.com/c4slu/releases-web" target="_blank">
-            <div className="flex items-center p-2 bg-accent/50 rounded-xl hover:bg-accent transition-colors">
-              <Github />
-            </div>
-          </Link>
+          <div className="flex gap-5">
+            <Link href="https://github.com/c4slu/releases-web" target="_blank">
+              <div className="flex items-center p-2 bg-accent/50 rounded-xl hover:bg-accent transition-colors">
+                <Github />
+              </div>
+            </Link>
+            <Button onClick={() => signOut()} className="flex flex-row gap-2">
+              <LogOut width={18} /> SignOut
+            </Button>
+          </div>
         </div>
       </div>
     </main>

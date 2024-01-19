@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Toaster } from "@/components/ui/sonner";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   username: string;
@@ -19,6 +20,9 @@ export default function Register() {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
+
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     if (data.password !== data.confirmPassword) {
       return toast.error("Passwords do not match!");
@@ -35,15 +39,27 @@ export default function Register() {
         password: data.password,
       }),
     })
-      .then((response) => response.json()) // você pode querer adicionar isso se a API estiver retornando JSON
+      .then((response) => response.json())
       .then((request) => {
         console.log("Resposta da API:", request);
-        toast.success("You have signed in successfully");
-        // Qualquer lógica adicional que você queira executar após a resposta da API
+        // If error api
+        if (request.error) {
+          return toast.error(request.error);
+        }
+        if (request.message == "UserName already exists") {
+          return toast.error("UserName already exists");
+        }
+        if (request.message == "Email already exists") {
+          return toast.error("Email already exists");
+        }
+        if (request.message == "Sucess...") {
+          toast.success("Signed successfully");
+
+          return router.push("/auth/login");
+        }
       })
       .catch((error) => {
         console.error("Erro ao enviar a requisição:", error);
-        // Lógica de tratamento de erro, se necessário
       });
   };
 
