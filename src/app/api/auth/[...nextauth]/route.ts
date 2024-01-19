@@ -12,7 +12,7 @@ type UserProps = {
   updatedAt: Date;
 }[];
 
-export const prisma = new PrismaClient();
+const prisma = new PrismaClient();
 
 const authOptions = {
   providers: [
